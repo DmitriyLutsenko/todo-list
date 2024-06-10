@@ -13,10 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [App\Http\Controllers\TaskController::class, 'index'])->name('index');
+
+Route::get('/profile/{user_id?}', [App\Http\Controllers\HomeController::class, 'profile'])->middleware('auth')->name('user.profile');
+Route::get('/profiles', [App\Http\Controllers\HomeController::class, 'profiles'])->middleware('auth')->name('users.profiles');
+
+Route::prefix('/tasks')->group(function() {
+    Route::get('/', [App\Http\Controllers\TaskController::class, 'index'])->name('task.list');
+    Route::get('/{id}', [App\Http\Controllers\TaskController::class, 'show'])->name('task.show');
+});
+
+Route::prefix('/tasks')->middleware('auth')->group(function() {
+    Route::post('/add', [App\Http\Controllers\TaskController::class, 'store'])->name('task.store');
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
