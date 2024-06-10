@@ -21,7 +21,8 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('task_label', function (Blueprint $table) {
+        Schema::create('label_task', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('task_id')->unique();
             $table->unsignedBigInteger('label_id');
             $table->foreign('task_id')->references('id')->on('tasks');
@@ -36,7 +37,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_label');
+        Schema::dropIfExists('label_task');
         Schema::dropIfExists('labels');
     }
 };
