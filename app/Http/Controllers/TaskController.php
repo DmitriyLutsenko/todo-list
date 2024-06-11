@@ -15,7 +15,8 @@ class TaskController extends Controller
 
     public function show($id)
     {
-
+        $task = Task::where(['is_active' => 1])->with(['label'])->firstOrFail();
+        return view('todo.detail', ['task' => $task]);
     }
     public function store(Request $request)
     {
