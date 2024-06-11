@@ -37,7 +37,7 @@ class HomeController extends Controller
             }
         }
 
-        $userTasks = Task::select('id', 'title', 'description')->where(['user_id' => $user_id])->paginate(8);
+        $userTasks = Task::where(['user_id' => $user_id])->with(['label'])->paginate(8);
 
         $userInfo  = User::select('id', 'name')->where(['id' => $user_id])->first();
 

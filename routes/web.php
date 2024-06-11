@@ -15,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\TaskController::class, 'index'])->name('index');
 
+Route::get('/about', function(){
+    return view('pages.about');
+});
+
+Route::get('/home', function(){
+    return redirect()->route('index');
+});
 Route::get('/profile/{user_id?}', [App\Http\Controllers\HomeController::class, 'profile'])->middleware('auth')->name('user.profile');
 Route::get('/profiles', [App\Http\Controllers\HomeController::class, 'profiles'])->middleware('auth')->name('users.profiles');
 
@@ -24,7 +31,19 @@ Route::prefix('/tasks')->group(function() {
 });
 
 Route::prefix('/tasks')->middleware('auth')->group(function() {
+    
     Route::post('/add', [App\Http\Controllers\TaskController::class, 'store'])->name('task.store');
+    Route::post('/{id}/changestatus', [App\Http\Controllers\TaskController::class, 'changeActivity'])->name('task.changeActive');
+   
+    Route::delete('/{id}/delete', [App\Http\Controllers\TaskController::class, 'delete'])->name('task.delete');
+    Route::get('/{id}/delete', [App\Http\Controllers\TaskController::class, 'delete'])->name('task');
+
+    Route::get('/{id}/edit', [App\Http\Controllers\TaskController::class, 'edit'])->name('task.edit');
+    Route::post('/update', [App\Http\Controllers\TaskController::class, 'update'])->name('task.update');
+});
+
+Route::prefix('/label')->middleware('auth')->group(function() {
+    Route::post('/create', [App\Http\Controllers\LabelController::class, 'store'])->name('label.create');
 });
 
 Auth::routes();
