@@ -9,7 +9,7 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::where(['is_active' => 1])->paginate(8);
+        $tasks = Task::where(['is_active' => 1])->with(['label'])->paginate(8);
         return view('todo.index', ['tasks' => $tasks]);
     }
 

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Carbon\Traits\Timestamp;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Label;
 class Task extends Model
 {
     protected $fillable = [
@@ -25,5 +25,10 @@ class Task extends Model
     public function getTitleAttribute($value)
     {
         return \Str::ucfirst(\Str::lower($value));
+    }
+
+    public function label()
+    {
+        return $this->belongsToMany(Label::class);
     }
 }

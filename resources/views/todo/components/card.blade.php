@@ -3,7 +3,9 @@
         <div class="card-body">
             <div class="row pt-1 align-items-start">
                 <div class="col">
-                    <strong class="d-inline-block text-start mb-1 text-success">Новое</strong>
+                    @foreach($task->label as $label)
+                    <strong class="d-inline-block text-start mb-1 p-1" style="background:{{$label->bcolor}};color:{{$label->tcolor}}">{{ $label->title}}</strong>
+                    @endforeach
                 </div>
                 <div class="col">
                     <div class="mb-1 text-end text-muted">{{ $task->created_at}}</div>
