@@ -71,12 +71,8 @@ class TaskController extends Controller
             'task_id' => 'required|integer',
         ]);
 
-        $task = Task::find($request->task_id);
-
-        if (auth()->id() != $task->user_id) 
-        {
-            return redirect()->route('task.list')->with('error', 'Вы не можете удалить чужую задачу');
-        }
+        $task = Task::where(['id' => $request->task_id, 'user_id' => auth()->id()])->with(['label'])->firstOrFail();
+        $task->label()->detach();
 
         $task->delete();
 
