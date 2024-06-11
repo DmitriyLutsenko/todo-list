@@ -17,7 +17,7 @@ Route::get('/', [App\Http\Controllers\TaskController::class, 'index'])->name('in
 
 Route::get('/about', function(){
     return view('pages.about');
-});
+})->name('about');
 
 Route::get('/home', function(){
     return redirect()->route('index');

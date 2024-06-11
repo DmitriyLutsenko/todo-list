@@ -31,7 +31,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item"><a href="{{ route('users.profiles') }}" class="nav-link">Пользователи</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Об авторе</a></li>
+                        <li class="nav-item"><a href="{{ route('about') }}" class="nav-link">Об авторе</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
